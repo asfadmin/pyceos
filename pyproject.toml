@@ -4,9 +4,6 @@ version = "0.1.0"
 description = "Python library and tool for reading Committee on Earth Observation Satellites (CEOS) files"
 authors = ["Rohan Weeden <reweeden@alaska.edu>"]
 
-[tool.poetry.scripts]
-pyceos = "pyceos.cli:main"
-
 [tool.poetry.dependencies]
 python = "^3.8"
 
