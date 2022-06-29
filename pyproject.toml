@@ -6,6 +6,7 @@ authors = ["Rohan Weeden <reweeden@alaska.edu>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+kaitaistruct = "0.9"
 
 [tool.poetry.dev-dependencies]
 

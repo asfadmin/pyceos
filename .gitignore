@@ -1,1 +1,6 @@
+# Generated files
+__pycache__
 *.pyc
+
+# Tools
+poetry.lock
