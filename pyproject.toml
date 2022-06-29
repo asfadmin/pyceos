@@ -4,11 +4,19 @@ version = "0.1.0"
 description = "Python library and tool for reading Committee on Earth Observation Satellites (CEOS) files"
 authors = ["Rohan Weeden <reweeden@alaska.edu>"]
 
+[tool.poetry.scripts]
+pyceos = "pyceos.cli:main"
+
 [tool.poetry.dependencies]
 python = "^3.8"
 kaitaistruct = "0.9"
+jmespath = { version = "^1.0", optional = true }
 
 [tool.poetry.dev-dependencies]
+
+[tool.poetry.extras]
+# Used by the CLI
+jmespath = ["jmespath"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
