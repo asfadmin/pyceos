@@ -1,6 +1,15 @@
 meta:
   id: ceos
   file-extension: ceos
+  ks-opaque-types: true
+  imports:
+    - data_set_summary_record
+    - map_projection_record
+    - platform_position_record
+    - attitude_record
+    - radiometric_record
+    - data_quality_record
+    - imagery_options_record
 seq:
   - id: records
     type: record
@@ -12,6 +21,16 @@ types:
         type: record_header
       - id: body
         size: header.size - 12
+        type:
+          switch-on: header.type
+          cases:
+            'record_type::data_set_summary': data_set_summary_record
+            'record_type::map_projection': map_projection_record
+            'record_type::platform_position': platform_position_record
+            'record_type::attitude': attitude_record
+            'record_type::radiometric': radiometric_record
+            'record_type::data_quality': data_quality_record
+            'record_type::imagery_options': imagery_options_record
   record_header:
     seq:
       - id: sequence_number
@@ -25,6 +44,7 @@ types:
         type: u1
       - id: subtype_3
         type: u1
+        enum: subtype_3
       - id: size
         type: u4be
 enums:
@@ -48,3 +68,14 @@ enums:
     220: esa_facility_related
     230: jaxa_facility_related
     300: file_descriptor
+  subtype_3:
+    10: ceos
+    18: unspecified
+    36: ccrs
+    50: esa
+    60: nasa
+    61: jpl
+    70: jaxa
+    80: dfvlr
+    90: rae
+    100: telespazio
