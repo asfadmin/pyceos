@@ -35,7 +35,11 @@ def to_json(obj: Any):
         return [to_json(item) for item in obj]
 
     if isinstance(obj, dict):
-        return {k: to_json(v) for k, v in obj.items()}
+        return {
+            k: to_json(v)
+            for k, v in obj.items()
+            if not k.startswith("_")
+        }
 
     return {
         k: to_json(v)
@@ -93,8 +97,8 @@ def add_parser(subparsers: argparse._SubParsersAction):
 def dump(args: argparse.Namespace):
     serializer = SERIALIZERS.get(args.output, serialize_text)
 
-    with Ceos.from_file(args.file) as obj:
-        json_obj = to_json(obj)
+    obj = Ceos.parse_file(args.file)
+    json_obj = to_json(obj)
 
     if args.filter:
         json_obj = args.filter.search(json_obj)
