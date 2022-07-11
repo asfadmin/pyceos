@@ -1,4 +1,4 @@
-from pyceos.types import AsciiFloat, AsciiInt, AsciiString
+from pyceos.types import AsciiBool, AsciiFloat, AsciiInt, AsciiString
 
 
 # AsciiString #
@@ -33,6 +33,21 @@ def test_build_int():
     assert st.build(None) == b"    "
     assert st.build(0) == b"   0"
     assert st.build(20) == b"  20"
+
+
+# AsciiBool
+def test_parse_bool():
+    st = AsciiBool(1)
+    assert st.parse(b" ") is None
+    assert st.parse(b"0") is False
+    assert st.parse(b"1") is True
+
+
+def test_build_bool():
+    st = AsciiBool(2)
+    assert st.build(None) == b"  "
+    assert st.build(False) == b" 0"
+    assert st.build(True) == b" 1"
 
 
 # AsciiFloat #

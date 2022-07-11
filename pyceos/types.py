@@ -158,6 +158,18 @@ class IntAdapter(Adapter):
         return str(obj)
 
 
+class BoolAdapter(Adapter):
+    def _decode(self, obj: int, _context, _path) -> Optional[bool]:
+        if obj is None:
+            return None
+        return bool(obj)
+
+    def _encode(self, obj: Optional[bool], _context, _path) -> Optional[int]:
+        if obj is None:
+            return None
+        return int(obj)
+
+
 class FloatAdapter(Adapter):
     def __init__(self, subcon: Construct, format: str = ".7G"):
         super().__init__(subcon)
@@ -188,6 +200,10 @@ def AsciiInt(length: int) -> IntAdapter:
     return IntAdapter(AsciiString(length, leftpad=True))
 
 
+def AsciiBool(length: int) -> BoolAdapter:
+    return BoolAdapter(AsciiInt(length))
+
+
 def AsciiFloat(length: int, format: str = ".7G") -> IntAdapter:
     return FloatAdapter(
         AsciiString(length, leftpad=True),
@@ -205,3 +221,4 @@ F16_7 = AsciiFloat(16, format=".7G")
 E16_7 = AsciiFloat(16, format=".7E")
 E20_10 = AsciiFloat(20, format=".10E")
 E20_13 = AsciiFloat(20, format=".13E")
+E22_15 = AsciiFloat(22, format=".15E")

@@ -6,6 +6,7 @@ from pyceos.records.facility_related_data_record import (
     FacilityRelatedDataRecord,
     FacilityRelatedDataRecordJAXA,
 )
+from pyceos.records.platform_position_record import PlatformPositionRecord
 from pyceos.types import FixedSized, RepeatUntilEof
 
 
@@ -40,6 +41,7 @@ RecordBody = FixedSized(
         this.header.type,
         {
             RecordType.data_set_summary.name: DataSetSummaryRecord,
+            RecordType.platform_position.name: PlatformPositionRecord,
             RecordType.facility_related.name: FacilityRelatedDataRecord,
             RecordType.facility_related_jaxa.name: FacilityRelatedDataRecordJAXA
         },
