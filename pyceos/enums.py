@@ -18,9 +18,9 @@ class RecordType(Enum):
     file_descriptor = 192
     trailer_file_descriptor = 193
     facility_related = 200
-    asf_facility_related = 210
-    esa_facility_related = 220
-    jaxa_facility_related = 230
+    facility_related_asf = 210
+    facility_related_esa = 220
+    facility_related_jaxa = 230
 
 
 @unique

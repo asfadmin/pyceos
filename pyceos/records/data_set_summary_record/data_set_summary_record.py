@@ -2,7 +2,7 @@ from construct import GreedyBytes, Struct, Switch, this
 
 from pyceos.types import E16_7, F8_3, F16_7, AsciiInt, AsciiString, Spare
 
-from .sensor_specific import DataSetSummaryRecordSensorSpecificAlos
+from .sensor_specific import SensorSpecificAlos
 
 DataSetSummaryRecord = Struct(
     "sequence_number" / AsciiInt(4),
@@ -110,7 +110,7 @@ DataSetSummaryRecord = Struct(
     "sensor_specific" / Switch(
         this.sensor_id[:4],
         {
-            "ALOS": DataSetSummaryRecordSensorSpecificAlos,
+            "ALOS": SensorSpecificAlos,
         },
         default=GreedyBytes
     ),

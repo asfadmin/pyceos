@@ -15,7 +15,7 @@ ImageAnnotation = Struct(
     Spare(2)
 )
 
-DataSetSummaryRecordSensorSpecificAlos = Struct(
+SensorSpecificAlos = Struct(
     "cal_data_indicator" / AsciiInt(4),
     "start_cal_up" / AsciiInt(8),
     "stop_cal_up" / AsciiInt(8),
