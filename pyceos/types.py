@@ -1,18 +1,40 @@
 import io
+import itertools
 from typing import Optional
 
 from construct import (
     Adapter,
     Construct,
     GreedyBytes,
+    GreedyRange,
     GreedyString,
+    ListContainer,
     Padding,
     PaddingError,
+    StreamError,
     Subconstruct,
     evaluate,
     stream_read,
     stream_write,
 )
+
+
+class RepeatUntilEof(GreedyRange):
+    """
+    Like construct.GreedyRange but does not swallow errors.
+    """
+    def _parse(self, stream, context, path):
+        discard = self.discard
+        obj = ListContainer()
+        try:
+            for i in itertools.count():
+                context._index = i
+                e = self.subcon._parsereport(stream, context, path)
+                if not discard:
+                    obj.append(e)
+        except StreamError:
+            pass
+        return obj
 
 
 class FixedSized(Subconstruct):

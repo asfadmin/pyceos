@@ -2,7 +2,7 @@ from construct import Byte, Enum, GreedyRange, Int32ub, Struct, Switch, Terminat
 
 from pyceos.enums import FacilityRelatedSubtype3, RecordType
 from pyceos.records.data_set_summary_record import DataSetSummaryRecord
-from pyceos.types import FixedSized
+from pyceos.types import FixedSized, RepeatUntilEof
 
 RecordHeader = Struct(
     "sequence_number" / Int32ub,
@@ -19,21 +19,23 @@ RecordHeader = Struct(
     "size" / Int32ub
 )
 
+RecordBody = FixedSized(
+    this.header.size - 12,
+    Switch(
+        this.header.type,
+        {
+            RecordType.data_set_summary.name: DataSetSummaryRecord
+        },
+        default=Byte
+    ),
+    pattern=b" ",
+)
+
 Ceos = Struct(
-    "records" / GreedyRange(
+    "records" / RepeatUntilEof(
         Struct(
             "header" / RecordHeader,
-            "body" / FixedSized(
-                this.header.size - 12,
-                Switch(
-                    this.header.type,
-                    {
-                        RecordType.data_set_summary.name: DataSetSummaryRecord
-                    },
-                    default=Byte
-                ),
-                pattern=b" ",
-            ),
+            "body" / RecordBody,
         )
     ),
     Terminated
