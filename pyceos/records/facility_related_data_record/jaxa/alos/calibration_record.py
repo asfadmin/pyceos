@@ -1,9 +1,8 @@
-from construct import Struct, Switch, Terminated, this
+from construct import Const, IfThenElse, Struct, Terminated, this
 
 from pyceos.types import E20_10, AsciiInt, Spare
 
 ORIGINAL_FIELDS = (
-    "sequence_number" / AsciiInt(4),  # 11 for alos and 5 for alos2
     "a_map" / E20_10[10],
     "b_map" / E20_10[10],
     "cal_data_indicator" / AsciiInt(4),
@@ -20,32 +19,41 @@ ORIGINAL_FIELDS = (
     Spare(224),
 )
 
+
+def make_record(record_number: int, *subcons):
+    return Struct(
+        "sequence_number" / Const(record_number, AsciiInt(4)),
+        *subcons,
+        Terminated
+    )
+
+
 # From MapReady:
 # Old Palsar data, before the larger transformation blocks were
 # added, so we do not have as much available for decoding.
-CalibrationRecordShort = Struct(
-    *ORIGINAL_FIELDS,
-    Terminated
-)
+def CalibrationRecordShort(record_number: int):
+    return make_record(record_number, *ORIGINAL_FIELDS)
 
-CalibrationRecordFull = Struct(
-    *ORIGINAL_FIELDS,
-    "a" / E20_10[25],
-    "b" / E20_10[25],
-    "origin_pixel" / E20_10,
-    "origin_line" / E20_10,
-    "c" / E20_10[25],
-    "d" / E20_10[25],
-    "origin_lat" / E20_10,
-    "origin_lon" / E20_10,
-    Spare(1896),
-    Terminated
-)
 
-CalibrationRecord = Switch(
-    this.header.size,
-    {
-        1000: CalibrationRecordShort,
-        5000: CalibrationRecordFull
-    }
-)
+def CalibrationRecordFull(record_number: int):
+    return make_record(
+        record_number,
+        *ORIGINAL_FIELDS,
+        "a" / E20_10[25],
+        "b" / E20_10[25],
+        "origin_pixel" / E20_10,
+        "origin_line" / E20_10,
+        "c" / E20_10[25],
+        "d" / E20_10[25],
+        "origin_lat" / E20_10,
+        "origin_lon" / E20_10,
+        Spare(1896)
+    )
+
+
+def CalibrationRecord(record_number: int):
+    return IfThenElse(
+        this.header.size == 1000,
+        CalibrationRecordShort(record_number),
+        CalibrationRecordFull(record_number)
+    )

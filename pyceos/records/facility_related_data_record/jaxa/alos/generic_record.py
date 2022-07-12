@@ -1,4 +1,4 @@
-from construct import Const, GreedyBytes, Struct
+from construct import GreedyBytes, Struct
 
 from pyceos.types import AsciiInt, Spare
 

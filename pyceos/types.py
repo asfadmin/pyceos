@@ -5,7 +5,6 @@ from typing import Optional
 from construct import (
     Adapter,
     Construct,
-    Container,
     GreedyBytes,
     GreedyRange,
     GreedyString,
@@ -101,49 +100,6 @@ class FixedSized(Subconstruct):
         if length < 0:
             raise PaddingError("length cannot be negative", path=path)
         return length
-
-
-class KeepLast(Construct):
-    """
-    Calls all subcons but only returns the results from the last one during
-    parsing and building. This can be used to apply zero sized subcons in a
-    flat context.
-
-    Example::
-        >>> KeepLast(
-        ...     Check(this.size == 100),
-        ...     "type_code" / Peek(Byte),
-        ...     Switch(
-        ...         this.type_code,
-        ...         {0: Type0, 1: Type1},
-        ...     )
-        ... )
-    """
-    def __init__(self, *subcons, **subconskw):
-        super().__init__()
-        self.subcons = list(subcons) + list(k / v for k, v in subconskw.items())
-        self._subcons = Container((sc.name, sc) for sc in self.subcons if sc.name)
-        self.last = subcons[-1]
-        self.flagbuildnone = self.last.flagbuildnone
-
-    def _parse(self, stream, context, path):
-        obj = None
-        context = Container(**context)
-        context._root = context._.get("_root", context)
-        for subcon in self.subcons:
-            obj = subcon._parsereport(stream, context, path)
-            if subcon.name:
-                context[subcon.name] = obj
-        return obj
-
-    def _build(self, obj, stream, context, path):
-        buildret = None
-        for subcon in self.subcons:
-            buildret = subcon._build(obj, stream, context, path)
-        return buildret
-
-    def _sizeof(self, context, path):
-        return self.last._sizeof(context, path)
 
 
 class IntAdapter(Adapter):
