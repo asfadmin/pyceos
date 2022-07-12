@@ -1,6 +1,7 @@
 from construct import Byte, Enum, GreedyBytes, Int32ub, Struct, Switch, Terminated, this
 
 from pyceos.enums import FacilityRelatedSubtype3, RecordType
+from pyceos.records.attitude_record import AttitudeRecord
 from pyceos.records.data_set_summary_record import DataSetSummaryRecord
 from pyceos.records.facility_related_data_record import (
     FacilityRelatedDataRecord,
@@ -42,6 +43,7 @@ RecordBody = FixedSized(
         {
             RecordType.data_set_summary.name: DataSetSummaryRecord,
             RecordType.platform_position.name: PlatformPositionRecord,
+            RecordType.attitude.name: AttitudeRecord,
             RecordType.facility_related.name: FacilityRelatedDataRecord,
             RecordType.facility_related_jaxa.name: FacilityRelatedDataRecordJAXA
         },

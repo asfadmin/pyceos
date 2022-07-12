@@ -173,6 +173,7 @@ def Spare(length: int):
 
 # ALOS standard float types
 F8_3 = AsciiFloat(8, format=".3G")
+E14_6 = AsciiFloat(14, format=".6E")
 F16_7 = AsciiFloat(16, format=".7G")
 E16_7 = AsciiFloat(16, format=".7E")
 E20_10 = AsciiFloat(20, format=".10E")
