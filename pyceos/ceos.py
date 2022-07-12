@@ -1,6 +1,16 @@
-from construct import Byte, Enum, GreedyBytes, Int32ub, Struct, Switch, Terminated, this
+from construct import (
+    Byte,
+    Computed,
+    Enum,
+    GreedyBytes,
+    Int32ub,
+    Struct,
+    Switch,
+    Terminated,
+    this,
+)
 
-from pyceos.enums import FacilityRelatedSubtype3, RecordType
+from pyceos.enums import FacilityRelatedSubtype3, FileDescriptorSubtype1, RecordType
 from pyceos.records.attitude_record import AttitudeRecord
 from pyceos.records.data_quality_summary_record import DataQualitySummaryRecord
 from pyceos.records.data_set_summary_record import DataSetSummaryRecord
@@ -23,19 +33,34 @@ def process_record(obj, ctx):
         ctx._root.mission_id = obj.body.mission_id
 
 
+class ComputeSubtype():
+    def __init__(self, field: str, mapping: dict):
+        self.field = field
+        self.mapping = mapping
+
+    def __call__(self, ctx):
+        enum = self.mapping.get(ctx.type)
+        value = ctx[self.field]
+        if not enum:
+            return value
+        return enum(value).name
+
+
 RecordHeader = Struct(
     "sequence_number" / Int32ub,
-    "subtype_1" / Byte,
+    "_subtype_1" / Byte,
     "type" / Enum(Byte, RecordType),
-    "subtype_2" / Byte,
-    "subtype_3" / Switch(
-        this.type,
-        {
-            RecordType.facility_related.name: Enum(Byte, FacilityRelatedSubtype3)
-        },
-        default=Byte
-    ),
-    "size" / Int32ub
+    # Subtype1 depends on type, and it's logical for it to come after
+    "subtype_1" / Computed(ComputeSubtype("_subtype_1", {
+        RecordType.file_descriptor.name: FileDescriptorSubtype1
+    })),
+    "_subtype_2" / Byte,
+    "subtype_2" / Computed(ComputeSubtype("_subtype_2", {})),
+    "_subtype_3" / Byte,
+    "subtype_3" / Computed(ComputeSubtype("_subtype_3", {
+        RecordType.facility_related.name: FacilityRelatedSubtype3
+    })),
+    "size" / Int32ub,
 )
 
 RecordBody = FixedSized(

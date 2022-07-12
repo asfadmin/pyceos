@@ -24,6 +24,16 @@ class RecordType(Enum):
 
 
 @unique
+class FileDescriptorSubtype1(Enum):
+    sar_leader_file_descriptor = 11
+    text = 18
+    sar_data_file_descriptor = 50
+    sar_trailer_file_descriptor = 63
+    volume_descriptor = 192
+    file_pointer = 219
+
+
+@unique
 class FacilityRelatedSubtype3(Enum):
     ceos = 10
     unspecified = 18
