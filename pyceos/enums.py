@@ -11,7 +11,7 @@ class RecordType(Enum):
     attitude = 40
     radiometric = 50
     radiometric_compensation = 51
-    data_quality = 60
+    data_quality_summary = 60
     data_histogram = 70
     range_spectra = 80
     processing_parameter = 120
