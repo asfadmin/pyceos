@@ -8,6 +8,7 @@ from pyceos.records.facility_related_data_record import (
     FacilityRelatedDataRecordJAXA,
 )
 from pyceos.records.platform_position_record import PlatformPositionRecord
+from pyceos.records.radiometric_record import RadiometricRecord
 from pyceos.types import FixedSized, RepeatUntilEof
 
 
@@ -44,6 +45,7 @@ RecordBody = FixedSized(
             RecordType.data_set_summary.name: DataSetSummaryRecord,
             RecordType.platform_position.name: PlatformPositionRecord,
             RecordType.attitude.name: AttitudeRecord,
+            RecordType.radiometric.name: RadiometricRecord,
             RecordType.facility_related.name: FacilityRelatedDataRecord,
             RecordType.facility_related_jaxa.name: FacilityRelatedDataRecordJAXA
         },

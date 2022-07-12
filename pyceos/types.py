@@ -5,6 +5,7 @@ from typing import Optional
 from construct import (
     Adapter,
     Construct,
+    Container,
     GreedyBytes,
     GreedyRange,
     GreedyString,
@@ -140,6 +141,18 @@ class FloatAdapter(Adapter):
         if obj is None:
             return ""
         return f"{obj:{self.format}}"
+
+
+class ComplexAdapter(Adapter):
+    def _decode(self, obj: Optional[Container], _context, _path) -> Optional[complex]:
+        if obj is None:
+            return None
+        return complex(real=obj.real, imag=obj.imag)
+
+    def _encode(self, obj: Optional[complex], _context, _path) -> Container:
+        if obj is None:
+            return Container(real=None, imag=None)
+        return Container(real=obj.real, imag=obj.imag)
 
 
 def AsciiString(length: int, leftpad: bool = False):

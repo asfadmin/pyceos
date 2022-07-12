@@ -19,6 +19,9 @@ def to_json(obj: Any):
     if isinstance(obj, (bool, int, float, str)) or obj is None:
         return obj
 
+    if isinstance(obj, complex):
+        return {"real": obj.real, "imag": obj.imag}
+
     if isinstance(obj, bytes):
         if len(obj) < 100:
             try:
