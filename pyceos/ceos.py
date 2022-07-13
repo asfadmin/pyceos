@@ -18,6 +18,7 @@ from pyceos.records.facility_related_data_record import (
     FacilityRelatedDataRecord,
     FacilityRelatedDataRecordJAXA,
 )
+from pyceos.records.file_descriptor_record import FileDescriptorRecord
 from pyceos.records.platform_position_record import PlatformPositionRecord
 from pyceos.records.radiometric_record import RadiometricRecord
 from pyceos.types import FixedSized, RepeatUntilEof
@@ -68,6 +69,7 @@ RecordBody = FixedSized(
     Switch(
         this.header.type,
         {
+            RecordType.file_descriptor.name: FileDescriptorRecord,
             RecordType.data_set_summary.name: DataSetSummaryRecord,
             RecordType.platform_position.name: PlatformPositionRecord,
             RecordType.attitude.name: AttitudeRecord,
