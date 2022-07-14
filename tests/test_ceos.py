@@ -1,7 +1,8 @@
 import json
 
 import pytest
-from construct import ConstructError
+from construct import ConstructError, Container
+from pytest_assert_utils import assert_dict_is_subset
 
 from pyceos import Ceos, CeosRaw
 
@@ -35,3 +36,27 @@ def test_parse_empty_header():
 
     Ceos.parse(empty_header_data) == {"records": [empty_record]}
     Ceos.parse(empty_header_data * 5) == {"records": [empty_record] * 5}
+
+
+# Parsing single record files #
+@pytest.mark.parametrize(
+    "name",
+    (
+        "data_quality_summary",
+        "data_set_summary",
+        "facility_related_jaxa_calibration",
+        "platform_position",
+        "sar_leader_file_descriptor",
+    )
+)
+def test_parse_data_quality_summary(data_path, name):
+    records_path = data_path / "records"
+    parsed = Ceos.parse_file(
+        records_path / f"{name}.dat",
+        _root=Container(mission_id="ALOS2")
+    )
+
+    with open(records_path / f"{name}.json") as f:
+        expected = json.load(f)
+
+    assert_dict_is_subset(expected, parsed)

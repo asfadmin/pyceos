@@ -1,0 +1,76 @@
+{
+  "records": [
+    {
+      "header": {
+        "sequence_number": 6,
+        "type": "data_quality_summary",
+        "subtype_1": 18,
+        "subtype_2": 18,
+        "subtype_3": 20,
+        "size": 1620
+      },
+      "body": {
+        "sequence_number": 1,
+        "sar_chan": "",
+        "cali_date": "",
+        "num_channels": 4,
+        "islr": -10.16,
+        "pslr": -13.26,
+        "azi_ambig": 22.2,
+        "rng_ambig": 26.5,
+        "snr": -29.2,
+        "ber": null,
+        "rng_res": 11.1603411,
+        "azi_res": 77.2121025,
+        "rad_res": null,
+        "dyn_rng": null,
+        "abs_radiometric_uncertainty": {
+          "decibles": null,
+          "degrees": null
+        },
+        "rel_radiometric_uncertainty": [
+          {
+            "decibles": null,
+            "degrees": null
+          },
+          {
+            "decibles": null,
+            "degrees": null
+          },
+          {
+            "decibles": null,
+            "degrees": null
+          },
+          {
+            "decibles": null,
+            "degrees": null
+          }
+        ],
+        "alt_locerr": null,
+        "crt_locerr": null,
+        "alt_scale": null,
+        "crt_scale": null,
+        "dis_skew": null,
+        "ori_err": null,
+        "misregistration_error": [
+          {
+            "decibles": null,
+            "degrees": null
+          },
+          {
+            "decibles": null,
+            "degrees": null
+          },
+          {
+            "decibles": null,
+            "degrees": null
+          },
+          {
+            "decibles": null,
+            "degrees": null
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "records": [
+    {
+      "header": {
+        "sequence_number": 11,
+        "type": "facility_related",
+        "subtype_1": 18,
+        "subtype_2": 18,
+        "subtype_3": "jaxa",
+        "size": 5000
+      },
+      "body": {
+        "sequence_number": 5,
+        "a_map": [null, null, null, null, null, null, null, null, null, null],
+        "b_map": [null, null, null, null, null, null, null, null, null, null],
+        "cal_data_indicator": 0,
+        "start_line_up": 0,
+        "stop_line_up": 0,
+        "start_line_bottom": 0,
+        "stop_line_bottom": 0,
+        "prf_switching_indicator": 0,
+        "line_prf_switching": 1,
+        "sigma_start_line": null,
+        "number_loss_lines_l0": 0,
+        "number_loss_lines_l1": 0,
+        "a": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "b": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "origin_pixel": 0,
+        "origin_line": 0,
+        "c": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "d": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "origin_lat": 0,
+        "origin_lon": 0
+      }
+    }
+  ]
+}

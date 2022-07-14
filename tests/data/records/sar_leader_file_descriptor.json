@@ -1,0 +1,122 @@
+{
+  "records": [
+    {
+      "header": {
+        "sequence_number": 1,
+        "type": "file_descriptor",
+        "subtype_1": "sar_leader_file_descriptor",
+        "subtype_2": 18,
+        "subtype_3": 18,
+        "size": 720
+      },
+      "body": {
+        "ascii_flag": "A",
+        "format_doc": "CEOS-SAR",
+        "format_rev": "A",
+        "design_rev": "A",
+        "software_id": "000.000",
+        "file_num": 1,
+        "product_id": "AL2 SARBSARL",
+        "record_sequence": {
+          "type": "FSEQ",
+          "sequence_number": 1,
+          "sequence_number_size": 4
+        },
+        "record_code": {
+          "type": "FTYP",
+          "sequence_number": 5,
+          "sequence_number_size": 4
+        },
+        "record_length": {
+          "type": "FLGT",
+          "sequence_number": 9,
+          "sequence_number_size": 4
+        },
+        "record_descriptors": {
+          "data_set_summary": {
+            "num": 1,
+            "size": 4096
+          },
+          "map_projection": {
+            "num": 0,
+            "size": 0
+          },
+          "platform_position": {
+            "num": 1,
+            "size": 4680
+          },
+          "attitude": {
+            "num": 1,
+            "size": 16384
+          },
+          "radiometric": {
+            "num": 1,
+            "size": 9860
+          },
+          "radiometric_compensation": {
+            "num": 0,
+            "size": 0
+          },
+          "data_quality_summary": {
+            "num": 1,
+            "size": 1620
+          },
+          "data_histogram": {
+            "num": 0,
+            "size": 0
+          },
+          "range_spectra": {
+            "num": 0,
+            "size": 0
+          },
+          "dem_descriptor": {
+            "num": 0,
+            "size": 0
+          },
+          "radar_parameter_update": {
+            "num": 0,
+            "size": 0
+          },
+          "annotation_data": {
+            "num": 0,
+            "size": 0
+          },
+          "detail_processing": {
+            "num": 0,
+            "size": 0
+          },
+          "calibration": {
+            "num": 0,
+            "size": 0
+          },
+          "gcp": {
+            "num": 0,
+            "size": 0
+          },
+          "facility_related": [
+            {
+              "num": 1,
+              "size": 325000
+            },
+            {
+              "num": 1,
+              "size": 511000
+            },
+            {
+              "num": 1,
+              "size": 3072
+            },
+            {
+              "num": 1,
+              "size": 728000
+            },
+            {
+              "num": 1,
+              "size": 5000
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
