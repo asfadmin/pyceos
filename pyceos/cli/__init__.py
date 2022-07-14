@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 from . import dump, slice
 
@@ -20,4 +21,8 @@ def main():
     parser = get_parser()
 
     args = parser.parse_args()
-    args.func(args)
+    try:
+        args.func(args)
+    except Exception as e:
+        print(f"{e.__class__.__name__}: {e}", file=sys.stderr)
+        exit(-1)
