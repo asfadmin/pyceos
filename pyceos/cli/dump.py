@@ -1,5 +1,6 @@
 import argparse
 import json
+import pathlib
 import sys
 from binascii import hexlify
 from enum import Enum
@@ -69,9 +70,12 @@ SERIALIZERS = {
 
 
 def add_parser(subparsers: argparse._SubParsersAction):
-    parser: argparse.ArgumentParser = subparsers.add_parser("dump", help="Dump record contents to standard output")
+    parser: argparse.ArgumentParser = subparsers.add_parser(
+        "dump",
+        help="Dump record contents to standard output"
+    )
     parser.set_defaults(func=dump)
-    parser.add_argument("file", help="file to read")
+    parser.add_argument("file", help="file to read", type=pathlib.Path)
     if jmespath:
         parser.add_argument(
             "filter",
@@ -103,7 +107,7 @@ def dump(args: argparse.Namespace):
     obj = Ceos.parse_file(args.file)
     json_obj = to_json(obj)
 
-    if args.filter:
+    if hasattr(args, "filter") and args.filter:
         json_obj = args.filter.search(json_obj)
 
     serializer(json_obj)
