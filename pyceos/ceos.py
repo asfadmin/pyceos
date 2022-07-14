@@ -4,6 +4,7 @@ from construct import (
     Enum,
     GreedyBytes,
     Int32ub,
+    RawCopy,
     Struct,
     Switch,
     Terminated,
@@ -83,12 +84,20 @@ RecordBody = FixedSized(
     pattern=b" ",
 )
 
+Record = Struct(
+    "header" / RecordHeader,
+    "body" / RecordBody,
+) * process_record
+
 Ceos = Struct(
-    "records" / RepeatUntilEof(
-        Struct(
-            "header" / RecordHeader,
-            "body" / RecordBody,
-        ) * process_record
-    ),
+    "records" / RepeatUntilEof(Record),
     Terminated
 )
+
+CeosRaw = Struct(
+    "records" / RepeatUntilEof(RawCopy(Record)),
+    Terminated
+) * """
+Like Ceos but wraps each record in a construct.RawCopy so the underlying bytes
+can be accessed directly.
+"""

@@ -1,6 +1,6 @@
 import argparse
 
-from . import dump
+from . import dump, slice
 
 
 def get_parser():
@@ -11,6 +11,7 @@ def get_parser():
     )
 
     dump.add_parser(subparsers)
+    slice.add_parser(subparsers)
 
     return parser
 
