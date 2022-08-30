@@ -7,8 +7,8 @@ from .sensor_specific import SensorSpecificAlos
 DataSetSummaryRecord = Struct(
     "sequence_number" / AsciiInt(4),
     "sar_chan" / AsciiInt(4),
-    "product_id" / AsciiString(16),
-    "scene_des" / AsciiString(32),
+    "product_id" / AsciiString(32),
+    "scene_des" / AsciiString(16),
     "inp_sctim" / AsciiString(32),
     "asc_des" / AsciiString(16),
     "pro_lat" / F16_7,
