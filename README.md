@@ -6,7 +6,7 @@ A Python library and tool for reading Committee on Earth Observation Satellites
 The project can be installed directly from the git repo. The CLI can be easily
 installed with [pipx](https://pypi.org/project/pipx/).
 ```
-pip install git+ssh://git@github.com:asfadmin/pyceos
+pip install git+ssh://git@github.com/asfadmin/pyceos
 ```
 
 When installing the CLI, the `jmespath` extra can be specified to enable
